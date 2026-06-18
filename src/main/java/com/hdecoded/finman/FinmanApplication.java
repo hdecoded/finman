@@ -1,0 +1,13 @@
+package com.hdecoded.finman;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FinmanApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FinmanApplication.class, args);
+    }
+
+}
