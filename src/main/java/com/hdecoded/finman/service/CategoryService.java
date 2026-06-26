@@ -5,8 +5,6 @@ import com.hdecoded.finman.entity.CategoryEntity;
 import com.hdecoded.finman.entity.ProfileEntity;
 import com.hdecoded.finman.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.service.spi.ServiceException;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
