@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private final CategoryService categoryService;
+  private final CategoryService categoryService;
 
-    @PostMapping
-    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO) {
-        CategoryDTO savedCategoryDTO = categoryService.saveCategory(categoryDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedCategoryDTO);
-    }
+  @PostMapping
+  public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO) {
+    CategoryDTO savedCategoryDTO = categoryService.saveCategory(categoryDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedCategoryDTO);
+  }
 
 }

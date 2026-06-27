@@ -1,6 +1,13 @@
 package com.hdecoded.finman.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,38 +15,35 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name= "tbl_profiles")
+@Table(name = "tbl_profiles")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class ProfileEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String fullName;
-    @Column(unique = true)
-    private String email;
-    private String password;
-    private String ProfileImageURL;
-    @Column(updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
-    private Boolean isActive;
-    private String activationToken;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String fullName;
+  @Column(unique = true)
+  private String email;
+  private String password;
+  private String ProfileImageURL;
+  @Column(updatable = false)
+  @CreationTimestamp
+  private LocalDateTime createdAt;
+  @UpdateTimestamp
+  private LocalDateTime updatedAt;
+  private Boolean isActive;
+  private String activationToken;
 
-    @PrePersist
-    public void prePersist() {
-        if (this.isActive == null) {
-            this.isActive = false;
-        }
+  @PrePersist
+  public void prePersist() {
+    if (this.isActive == null) {
+      this.isActive = false;
     }
-
+  }
 
 }

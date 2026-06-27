@@ -1,17 +1,10 @@
 package com.hdecoded.finman.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -19,12 +12,12 @@ import java.time.LocalDateTime;
 @Builder
 public class ProfileDTO {
 
-    private Long id;
-    private String fullName;
-    private String email;
-    private String password;
-    private String ProfileImageURL;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+  private Long id;
+  private String fullName;
+  private String email;
+  private String password;
+  private String ProfileImageURL;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 
 }
