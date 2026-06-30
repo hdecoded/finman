@@ -4,6 +4,7 @@ import com.hdecoded.finman.dto.CategoryDTO;
 import com.hdecoded.finman.entity.CategoryEntity;
 import com.hdecoded.finman.entity.ProfileEntity;
 import com.hdecoded.finman.repository.CategoryRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,35 @@ public class CategoryService {
     CategoryEntity newCategory = toEntity(categoryDTO, profileEntity);
     newCategory = categoryRepository.save(newCategory);
     return toDTO(newCategory);
+  }
+
+  //get categories for current user
+  public List<CategoryDTO> getCategoriesForCurrentUser() {
+    ProfileEntity profileEntity = profileService.getCurrentProfile();
+    List<CategoryEntity> categories = categoryRepository.findByProfileId(profileEntity.getId());
+    return categories.stream().map(this::toDTO).toList();
+  }
+
+  // get categories by type for current user
+  public List<CategoryDTO> getCategoriesByTypeForCurrentUser(String type) {
+    ProfileEntity profile = profileService.getCurrentProfile();
+    List<CategoryEntity> entities = categoryRepository.findByTypeAndProfileId(
+        type,
+        profile.getId());
+    return entities.stream().map(this::toDTO).toList();
+  }
+
+  public CategoryDTO updateCategory(Long categoryId, CategoryDTO dto) {
+    ProfileEntity profile = profileService.getCurrentProfile();
+    CategoryEntity existingCategory = categoryRepository.findByIdAndProfileId(categoryId,
+            profile.getId())
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    existingCategory.setCategoryName(dto.getCategoryName());
+    existingCategory.setIcon(dto.getIcon());
+    existingCategory.setDescription(dto.getDescription());
+    existingCategory.setType(dto.getType());
+    existingCategory = categoryRepository.save(existingCategory);
+    return toDTO(existingCategory);
   }
 
   //helper methods

@@ -18,4 +18,5 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
 
   // select * from tbl_categories where type = ?1 and profile_id = ?2
   Boolean existsByCategoryNameAndProfileId(String name, Long profileId);
+
 }
