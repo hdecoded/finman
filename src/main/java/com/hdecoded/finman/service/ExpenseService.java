@@ -8,8 +8,11 @@ import com.hdecoded.finman.repository.CategoryRepository;
 import com.hdecoded.finman.repository.ExpenseRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -66,6 +69,28 @@ public class ExpenseService {
             throw new RuntimeException("Unauthorized to delete expense");
         }
         expenseRepository.delete(entity);
+    }
+
+    //filterExpenses
+    public List<ExpenseDTO> filterExpenses(LocalDate startDate, LocalDate endDate, String keyword,
+        Sort sort) {
+        ProfileEntity profile = profileService.getCurrentProfile();
+        List<ExpenseEntity> list = expenseRepository.findByProfileIdAndDateBetweenAndNameContainingIgnoreCase(
+            profile.getId(),
+            startDate, endDate, keyword, sort);
+        return list.stream().map(this::toDTO).toList();
+    }
+
+    // notifications
+    public List<ExpenseDTO> getExpensesForUserOnDate(Long profileId, LocalDate date) {
+        // createdDate is a LocalDateTime, so match the whole day's range rather than
+        // an exact instant, otherwise the time component excludes every row.
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
+        List<ExpenseEntity> list = expenseRepository.findByProfileIdAndCreatedDateBetween(
+            profileId, startOfDay, endOfDay);
+        return list.stream().map(this::toDTO).toList();
+
     }
 
     // Helper Methods
