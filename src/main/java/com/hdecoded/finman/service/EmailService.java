@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailService {
 
-  private final JavaMailSender mailSender;
-  @Value("${spring.mail.properties.mail.smtp.from}")
-  private String fromEmail;
+    private final JavaMailSender mailSender;
+    @Value("${spring.mail.properties.mail.smtp.from}")
+    private String fromEmail;
 
-  public void sendEmail(String to, String subject, String body) {
-    try {
-      SimpleMailMessage message = new SimpleMailMessage();
-      message.setFrom(fromEmail);
-      message.setTo(to);
-      message.setSubject(subject);
-      message.setText(body);
-      mailSender.send(message);
-    } catch (Exception e) {
-      throw new RuntimeException(e.getMessage());
+    public void sendEmail(String to, String subject, String body) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(fromEmail);
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(body);
+            mailSender.send(message);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
-  }
 }

@@ -14,16 +14,17 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
 
-  private final ProfileRepository profileRepository;
+    private final ProfileRepository profileRepository;
 
-  @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-    ProfileEntity existingProfile = profileRepository.findByEmail(email).
-        orElseThrow(() -> new UsernameNotFoundException("Profile not found with email:" + email));
+        ProfileEntity existingProfile = profileRepository.findByEmail(email).
+            orElseThrow(
+                () -> new UsernameNotFoundException("Profile not found with email:" + email));
 
-    return User.builder().username(existingProfile.getEmail())
-        .password(existingProfile.getPassword()).authorities(
-            Collections.emptyList()).build();
-  }
+        return User.builder().username(existingProfile.getEmail())
+            .password(existingProfile.getPassword()).authorities(
+                Collections.emptyList()).build();
+    }
 }

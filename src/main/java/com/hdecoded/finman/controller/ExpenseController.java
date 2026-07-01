@@ -19,23 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/expenses")
 public class ExpenseController {
 
-  private final ExpenseService expenseService;
+    private final ExpenseService expenseService;
 
-  @PostMapping
-  public ResponseEntity<ExpenseDTO> saveExpense(@RequestBody ExpenseDTO expenseDTO) {
-    ExpenseDTO savedExpenseDTO = expenseService.addExpense(expenseDTO);
-    return ResponseEntity.status(HttpStatus.CREATED).body(savedExpenseDTO);
-  }
+    @PostMapping
+    public ResponseEntity<ExpenseDTO> saveExpense(@RequestBody ExpenseDTO expenseDTO) {
+        ExpenseDTO savedExpenseDTO = expenseService.addExpense(expenseDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedExpenseDTO);
+    }
 
-  @GetMapping
-  public ResponseEntity<List<ExpenseDTO>> getAllExpenses() {
-    List<ExpenseDTO> expenses = expenseService.getCurrentMonthExpensesForCurrentUser();
-    return ResponseEntity.ok(expenses);
-  }
+    @GetMapping
+    public ResponseEntity<List<ExpenseDTO>> getAllExpenses() {
+        List<ExpenseDTO> expenses = expenseService.getCurrentMonthExpensesForCurrentUser();
+        return ResponseEntity.ok(expenses);
+    }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<ExpenseDTO> deleteExpense(@PathVariable Long id) {
-    expenseService.deleteExpense(id);
-    return ResponseEntity.noContent().build();
-  }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ExpenseDTO> deleteExpense(@PathVariable Long id) {
+        expenseService.deleteExpense(id);
+        return ResponseEntity.noContent().build();
+    }
 }

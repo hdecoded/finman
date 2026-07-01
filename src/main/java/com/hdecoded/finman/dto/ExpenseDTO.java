@@ -14,15 +14,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ExpenseDTO {
 
-  private Long id;
-  private String name;
-  private String memo;
-  private String imageURL;
-  private LocalDate date;
-  private BigDecimal amount;
-  private String categoryName;
-  private Long categoryId;
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
+    private Long id;
+    private String name;
+    private String memo;
+    private String imageURL;
+    private LocalDate date;
+    private BigDecimal amount;
+    private String categoryName;
+    private Long categoryId;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

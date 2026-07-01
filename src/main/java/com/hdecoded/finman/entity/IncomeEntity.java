@@ -28,34 +28,34 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "tbl_income")
 public class IncomeEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private String name;
-  private String memo;
-  private String imageURL;
-  private LocalDate date;
-  private BigDecimal amount;
+    private String name;
+    private String memo;
+    private String imageURL;
+    private LocalDate date;
+    private BigDecimal amount;
 
-  @Column(updatable = false)
-  @CreationTimestamp
-  private LocalDateTime createdDate;
-  @UpdateTimestamp
-  private LocalDateTime updatedDate;
+    @Column(updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdDate;
+    @UpdateTimestamp
+    private LocalDateTime updatedDate;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id", nullable = false)
-  private CategoryEntity category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "profile_id", nullable = false)
-  private ProfileEntity profile;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id", nullable = false)
+    private ProfileEntity profile;
 
-  @PrePersist
-  public void prePersist() {
-    if (this.date == null) {
-      this.date = LocalDate.now();
+    @PrePersist
+    public void prePersist() {
+        if (this.date == null) {
+            this.date = LocalDate.now();
+        }
     }
-  }
 }

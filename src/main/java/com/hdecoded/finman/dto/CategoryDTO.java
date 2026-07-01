@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CategoryDTO {
 
-  private Long id;
-  private String categoryName;
-  private String description;
-  private String icon;
-  private String type;
-  private Long profileId;
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
+    private Long id;
+    private String categoryName;
+    private String description;
+    private String icon;
+    private String type;
+    private Long profileId;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

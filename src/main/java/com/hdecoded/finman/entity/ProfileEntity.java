@@ -23,27 +23,27 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Builder
 public class ProfileEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  private String fullName;
-  @Column(unique = true)
-  private String email;
-  private String password;
-  private String ProfileImageURL;
-  @Column(updatable = false)
-  @CreationTimestamp
-  private LocalDateTime createdAt;
-  @UpdateTimestamp
-  private LocalDateTime updatedAt;
-  private Boolean isActive;
-  private String activationToken;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String fullName;
+    @Column(unique = true)
+    private String email;
+    private String password;
+    private String ProfileImageURL;
+    @Column(updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+    private Boolean isActive;
+    private String activationToken;
 
-  @PrePersist
-  public void prePersist() {
-    if (this.isActive == null) {
-      this.isActive = false;
+    @PrePersist
+    public void prePersist() {
+        if (this.isActive == null) {
+            this.isActive = false;
+        }
     }
-  }
 
 }

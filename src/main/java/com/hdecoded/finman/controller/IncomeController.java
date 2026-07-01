@@ -19,23 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/incomes")
 public class IncomeController {
 
-  private final IncomeService incomeService;
+    private final IncomeService incomeService;
 
-  @PostMapping
-  public ResponseEntity<IncomeDTO> saveIncome(@RequestBody IncomeDTO incomeDTO) {
-    IncomeDTO savedIncomeDTO = incomeService.addIncome(incomeDTO);
-    return ResponseEntity.status(HttpStatus.CREATED).body(savedIncomeDTO);
-  }
+    @PostMapping
+    public ResponseEntity<IncomeDTO> saveIncome(@RequestBody IncomeDTO incomeDTO) {
+        IncomeDTO savedIncomeDTO = incomeService.addIncome(incomeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedIncomeDTO);
+    }
 
-  @GetMapping
-  public ResponseEntity<List<IncomeDTO>> getAllIncomes() {
-    List<IncomeDTO> incomes = incomeService.getCurrentMonthIncomesForCurrentUser();
-    return ResponseEntity.ok(incomes);
-  }
+    @GetMapping
+    public ResponseEntity<List<IncomeDTO>> getAllIncomes() {
+        List<IncomeDTO> incomes = incomeService.getCurrentMonthIncomesForCurrentUser();
+        return ResponseEntity.ok(incomes);
+    }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<IncomeDTO> deleteIncome(@PathVariable Long id) {
-    incomeService.deleteIncome(id);
-    return ResponseEntity.noContent().build();
-  }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<IncomeDTO> deleteIncome(@PathVariable Long id) {
+        incomeService.deleteIncome(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -11,20 +11,21 @@ import org.springframework.data.repository.query.Param;
 
 public interface ExpenseRepository extends JpaRepository<ExpenseEntity, Long> {
 
-  List<ExpenseEntity> findByProfileIdOrderByDateDesc(Long profileId);
+    List<ExpenseEntity> findByProfileIdOrderByDateDesc(Long profileId);
 
-  List<ExpenseEntity> findTop5ByProfileIdOrderByDateDesc(Long profileID);
+    List<ExpenseEntity> findTop5ByProfileIdOrderByDateDesc(Long profileID);
 
-  @Query("SELECT SUM(e.amount) FROM ExpenseEntity e where e.profile.id =   :profileId")
-  BigDecimal findTotalExpenseByProfileId(@Param("profileId") Long profileID);
+    @Query("SELECT SUM(e.amount) FROM ExpenseEntity e where e.profile.id =   :profileId")
+    BigDecimal findTotalExpenseByProfileId(@Param("profileId") Long profileID);
 
-  List<ExpenseEntity> findByProfileIdAndDateBetweenAndNameContainingIgnoreCase(
-      Long profileId,
-      LocalDate startDate,
-      LocalDate endDate,
-      String keyword,
-      Sort sort
-  );
+    List<ExpenseEntity> findByProfileIdAndDateBetweenAndNameContainingIgnoreCase(
+        Long profileId,
+        LocalDate startDate,
+        LocalDate endDate,
+        String keyword,
+        Sort sort
+    );
 
-  List<ExpenseEntity> findByProfileIdAndDateBetween(Long profileId, LocalDate startDate, LocalDate endDate);
+    List<ExpenseEntity> findByProfileIdAndDateBetween(Long profileId, LocalDate startDate,
+        LocalDate endDate);
 }

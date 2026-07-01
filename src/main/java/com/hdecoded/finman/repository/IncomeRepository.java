@@ -11,21 +11,21 @@ import org.springframework.data.repository.query.Param;
 
 public interface IncomeRepository extends JpaRepository<IncomeEntity, Long> {
 
-  List<IncomeEntity> findByProfileIdOrderByDateDesc(Long profileId);
+    List<IncomeEntity> findByProfileIdOrderByDateDesc(Long profileId);
 
-  List<IncomeEntity> findTop5ByProfileIdOrderByDateDesc(Long profileID);
+    List<IncomeEntity> findTop5ByProfileIdOrderByDateDesc(Long profileID);
 
-  @Query("SELECT SUM(i.amount) FROM IncomeEntity i where i.profile.id =   :profileId")
-  BigDecimal findTotalIncomeByProfileId(@Param("profileId") Long profileID);
+    @Query("SELECT SUM(i.amount) FROM IncomeEntity i where i.profile.id =   :profileId")
+    BigDecimal findTotalIncomeByProfileId(@Param("profileId") Long profileID);
 
-  List<IncomeEntity> findByProfileIdAndDateBetweenAndNameContainingIgnoreCase(
-      Long profileId,
-      LocalDate startDate,
-      LocalDate endDate,
-      String keyword,
-      Sort sort
-  );
+    List<IncomeEntity> findByProfileIdAndDateBetweenAndNameContainingIgnoreCase(
+        Long profileId,
+        LocalDate startDate,
+        LocalDate endDate,
+        String keyword,
+        Sort sort
+    );
 
-  List<IncomeEntity> findByProfileIdAndDateBetween(Long profileId, LocalDate startDate,
-      LocalDate endDate);
+    List<IncomeEntity> findByProfileIdAndDateBetween(Long profileId, LocalDate startDate,
+        LocalDate endDate);
 }
