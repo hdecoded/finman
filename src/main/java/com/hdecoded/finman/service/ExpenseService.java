@@ -6,6 +6,7 @@ import com.hdecoded.finman.entity.ExpenseEntity;
 import com.hdecoded.finman.entity.ProfileEntity;
 import com.hdecoded.finman.repository.CategoryRepository;
 import com.hdecoded.finman.repository.ExpenseRepository;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,21 @@ public class ExpenseService {
     List<ExpenseEntity> list = expenseRepository.findByProfileIdAndDateBetween(profile.getId(),
         startDate, endDate);
     return list.stream().map(this::toDTO).toList();
+  }
+
+  // Get latest 5 Expenses for current user
+  public List<ExpenseDTO> getLatest5ExpensesForCurrentUser() {
+    ProfileEntity profile = profileService.getCurrentProfile();
+    List<ExpenseEntity> list = expenseRepository.findTop5ByProfileIdOrderByDateDesc(
+        profile.getId());
+    return list.stream().map(this::toDTO).toList();
+  }
+
+  // Get total expenses for Current User
+  public BigDecimal getTotalExpensesForCurrentUser() {
+    ProfileEntity profile = profileService.getCurrentProfile();
+    BigDecimal total = expenseRepository.findTotalExpenseByProfileId(profile.getId());
+    return total != null ? total : BigDecimal.ZERO;
   }
 
   // Delete expense by id

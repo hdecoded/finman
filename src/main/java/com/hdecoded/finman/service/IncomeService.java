@@ -6,6 +6,7 @@ import com.hdecoded.finman.entity.IncomeEntity;
 import com.hdecoded.finman.entity.ProfileEntity;
 import com.hdecoded.finman.repository.CategoryRepository;
 import com.hdecoded.finman.repository.IncomeRepository;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,21 @@ public class IncomeService {
     List<IncomeEntity> list = incomeRepository.findByProfileIdAndDateBetween(profile.getId(),
         startDate, endDate);
     return list.stream().map(this::toDTO).toList();
+  }
+
+  // Get latest 5 i for current user
+  public List<IncomeDTO> getLatest5IncomesForCurrentUser() {
+    ProfileEntity profile = profileService.getCurrentProfile();
+    List<IncomeEntity> list = incomeRepository.findTop5ByProfileIdOrderByDateDesc(
+        profile.getId());
+    return list.stream().map(this::toDTO).toList();
+  }
+
+  // Get total income for Current User
+  public BigDecimal getTotalIncomesForCurrentUser() {
+    ProfileEntity profile = profileService.getCurrentProfile();
+    BigDecimal total = incomeRepository.findTotalIncomeByProfileId(profile.getId());
+    return total != null ? total : BigDecimal.ZERO;
   }
 
   // Helper Methods
